@@ -52,7 +52,7 @@ model = Sequential([
     Conv2D(64, (3, 3), activation='relu'),
     MaxPooling2D((2, 2)),
     Flatten(),
-    Dense(512, activation='relu'),  # Ridotto il numero di neuroni
+    Dense(512, activation='relu'),  # + neuroni -> +pensatezza training / +accuracy
     Dropout(0.5),
     Dense(num_classes, activation='softmax')
 ])
