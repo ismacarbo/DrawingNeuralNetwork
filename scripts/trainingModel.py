@@ -9,20 +9,20 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 
 # Percorso alla directory dei file .npy
-data_path = 'C:/Users/INTEL/Desktop/neural network/datas'
+percorso = 'C:/Users/INTEL/Desktop/neural network/datas'
 
 # Carica i dati da file .npy
-def load_quickdraw_data(categories, data_path, max_samples_per_category=4000):
+def load_quickdraw_data(categories, percorso, max_samples_per_category=4000):
     X, y = [], []
     for idx, category in enumerate(categories):
-        file_path = os.path.join(data_path, f'full_numpy_bitmap_{category}.npy')
-        if os.path.exists(file_path):
-            data = np.load(file_path)
+        percorsoFile = os.path.join(percorso, f'full_numpy_bitmap_{category}.npy')
+        if os.path.exists(percorsoFile):
+            data = np.load(percorsoFile)
             data = data[:max_samples_per_category]  # Limita il numero di campioni per categoria
             X.append(data)
             y.append(np.full(data.shape[0], idx))  # etichetta per ogni categoria
         else:
-            print(f"File not found: {file_path}")
+            print(f"File not found: {percorsoFile}")
     X = np.concatenate(X, axis=0)
     y = np.concatenate(y, axis=0)
     return X, y
@@ -30,7 +30,7 @@ def load_quickdraw_data(categories, data_path, max_samples_per_category=4000):
 categories = ['airplane', 'apple', 'axe', 'cat', 'car']  # esempio di categorie
 
 #carico i dati
-X, y = load_quickdraw_data(categories, data_path)
+X, y = load_quickdraw_data(categories, percorso)
 
 X = X / 255.0
 X = X.reshape(X.shape[0], 28, 28, 1)
